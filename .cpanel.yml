@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/centivot/public_html/
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R .next $DEPLOYPATH
+    - cd $DEPLOYPATH && /usr/local/bin/npm install
+    - cd $DEPLOYPATH && /usr/local/bin/npm run build
