@@ -84,9 +84,9 @@ export default function Home() {
             transition={{ ...transition, delay: 0.07 }}
             className="text-[clamp(3rem,8vw,6.5rem)] font-bold leading-[1.04] tracking-[-0.02em] mb-8 max-w-4xl text-gradient"
           >
-            Enterprise ICT
+            Professional ICT Solutions
             <br />
-            for Kenya.
+            for Businesses in Kenya.
           </motion.h1>
 
           <motion.p
@@ -96,9 +96,9 @@ export default function Home() {
             transition={{ ...transition, delay: 0.14 }}
             className="text-[#6e6e73] text-[19px] leading-relaxed max-w-xl mb-12"
           >
-            Centivo Technologies delivers hardware infrastructure, software
-            solutions, networking and surveillance — founded 2015 by Saulo
-            Adorwa and Erick Ovitah.
+            Centivo Technologies delivers reliable ICT infrastructure, software
+            solutions, networking, CCTV surveillance, and solar systems for
+            businesses, NGOs, schools, and homes across Kenya.
           </motion.p>
 
           <motion.div

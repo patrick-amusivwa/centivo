@@ -11,11 +11,40 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Centivo Technologies Ltd | ICT Solutions Kenya",
+  title: {
+    default: "Centivo Technologies Ltd | ICT Solutions Kenya",
+    template: "%s | Centivo Technologies Ltd",
+  },
   description:
-    "Centivo Technologies Ltd is a Kenya-based ICT company offering hardware & software solutions, CCTV, networking, web design, solar installation, and more.",
-  keywords:
-    "ICT Kenya, CCTV installation, networking, web design, server maintenance, Nairobi",
+    "Centivo Technologies Ltd provides reliable ICT solutions in Kenya, including CCTV installation, networking, server infrastructure, web design, solar systems, and IT support.",
+  keywords: [
+    "ICT solutions Kenya",
+    "CCTV installation Kenya",
+    "networking services Kenya",
+    "web design Kenya",
+    "server maintenance Kenya",
+    "solar installation Kenya",
+    "Nairobi ICT company",
+    "Kisumu ICT solutions",
+  ],
+  alternates: {
+    canonical: "https://centivotechnology.co.ke",
+  },
+  openGraph: {
+    title: "Centivo Technologies Ltd | ICT Solutions Kenya",
+    description:
+      "Professional ICT services in Kenya for businesses, schools, NGOs, and homes.",
+    url: "https://centivotechnology.co.ke",
+    siteName: "Centivo Technologies Ltd",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Centivo Technologies Ltd | ICT Solutions Kenya",
+    description:
+      "Reliable ICT solutions in Kenya, from CCTV and networking to web design and solar installation.",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
@@ -42,6 +71,21 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+              (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/6a4655a7539b7e1d4b7d3078/1jshbt6gm';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );

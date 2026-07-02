@@ -1,9 +1,27 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const cardEase = [0.4, 0, 0.2, 1] as [number, number, number, number];
+
+const founders = [
+  {
+    initials: "SA",
+    name: "Saulo Adorwa",
+    role: "Co-Founder & Director",
+    image: "/imagestouse/kevo enhanced.png",
+    alt: "Saulo Adorwa",
+  },
+  {
+    initials: "EO",
+    name: "Erick Ovitah",
+    role: "Co-Founder & Director",
+    image: "/imagestouse/erick enhanced.png",
+    alt: "Erick Ovitah",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -27,7 +45,7 @@ export default function AboutPage() {
             transition={{ duration: 0.7, delay: 0.07, ease: cardEase }}
             className="text-gradient text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tight leading-tight max-w-2xl"
           >
-            Building Kenya&apos;s digital future.
+            Trusted ICT Partners in Kenya.
           </motion.h1>
         </div>
       </section>
@@ -60,9 +78,8 @@ export default function AboutPage() {
               Eldoret.
             </p>
             <p className="text-[17px] text-[#6e6e73] leading-relaxed">
-              Our work spans Kenya&apos;s borders into immediate countries and
-              the entire globe — from NGO infrastructure to government digital
-              programs.
+              Our work supports NGOs, government programs, schools, and private
+              businesses with dependable ICT delivery across Kenya and beyond.
             </p>
           </AnimatedSection>
 
@@ -70,19 +87,8 @@ export default function AboutPage() {
             <p className="text-[12px] font-semibold text-[#6e6e73] tracking-widest uppercase mb-4">
               Founders
             </p>
-            <div className="space-y-4">
-              {[
-                {
-                  initials: "SA",
-                  name: "Saulo Adorwa",
-                  role: "Co-Founder & Director",
-                },
-                {
-                  initials: "EO",
-                  name: "Erick Ovitah",
-                  role: "Co-Founder & Director",
-                },
-              ].map((f, i) => (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {founders.map((f, i) => (
                 <motion.div
                   key={f.name}
                   initial={{ opacity: 0, y: 16 }}
@@ -93,15 +99,26 @@ export default function AboutPage() {
                     duration: 0.5,
                     ease: cardEase,
                   }}
-                  className="bg-[#f5f5f7] rounded-2xl p-6"
+                  className="bg-[#f5f5f7] rounded-3xl overflow-hidden shadow-xl shadow-black/5"
                 >
-                  <p className="text-[32px] font-bold text-[#1d1d1f] leading-none mb-3">
-                    {f.initials}
-                  </p>
-                  <p className="text-[17px] font-semibold text-[#1d1d1f]">
-                    {f.name}
-                  </p>
-                  <p className="text-[15px] text-[#6e6e73] mt-1">{f.role}</p>
+                  <div className="relative h-72 overflow-hidden bg-[#dfe4ea]">
+                    <Image
+                      src={f.image}
+                      alt={f.alt}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="text-[32px] font-bold text-[#1d1d1f] leading-none mb-3">
+                      {f.initials}
+                    </p>
+                    <p className="text-[17px] font-semibold text-[#1d1d1f]">
+                      {f.name}
+                    </p>
+                    <p className="text-[15px] text-[#6e6e73] mt-1">{f.role}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
