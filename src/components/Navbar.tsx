@@ -30,10 +30,9 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 nav-glass">
-      <nav className="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
-        {/* Logo container increased to match the footer dimensions */}
+      <nav className="max-w-[1400px] mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <div className="relative w-[320px] h-[112px]">
+          <div className="relative w-[400px] h-[160px]">
             <Image
               src="/imagestouse/CENTIVO LOGO.png"
               alt="Centivo Technologies"
@@ -50,10 +49,10 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-[13px] transition-colors duration-150 ${
+              className={`text-[14px] font-bold tracking-[0.01em] transition-colors duration-150 ${
                 pathname === l.href
-                  ? "text-[#1d1d1f] font-medium"
-                  : "text-[#6e6e73] hover:text-[#1d1d1f]"
+                  ? "text-black"
+                  : "text-black hover:text-black"
               }`}
             >
               {l.label}
@@ -61,7 +60,7 @@ export default function Navbar() {
           ))}
           <Link
             href="/contact"
-            className="text-[13px] font-medium text-white bg-[#0071e3] hover:bg-[#0077ed] px-4 py-1.5 rounded-full transition-colors duration-150"
+            className="text-[14px] font-bold text-white bg-[#0071e3] hover:bg-[#0077ed] px-4 py-1.5 rounded-full shadow-[0_10px_24px_rgba(0,113,227,0.24)] transition-colors duration-150"
           >
             Contact
           </Link>
@@ -70,7 +69,7 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-[13px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] transition-colors"
+          className="md:hidden text-[14px] font-bold text-black hover:text-black transition-colors"
         >
           {open ? "Close" : "Menu"}
         </button>
@@ -84,21 +83,21 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden nav-glass border-t border-black/5"
+            className="md:hidden border-t border-slate-200/80 bg-white/95"
           >
             <div className="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-1">
               {links.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className={`py-2 text-[15px] ${pathname === l.href ? "text-[#1d1d1f] font-medium" : "text-[#6e6e73]"}`}
+                  className={`py-2 text-[15px] font-bold ${pathname === l.href ? "text-black" : "text-black"}`}
                 >
                   {l.label}
                 </Link>
               ))}
               <Link
                 href="/contact"
-                className="mt-2 py-2 text-[15px] font-medium text-[#0071e3]"
+                className="mt-2 py-2 text-[15px] font-bold text-[#0071e3]"
               >
                 Contact
               </Link>

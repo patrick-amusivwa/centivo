@@ -265,47 +265,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PARTNERS & CLIENTS */}
-      <section className="bg-white py-20 border-t border-black/5">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <AnimatedSection>
-            <p className="text-[12px] font-semibold text-[#6e6e73] tracking-widest uppercase mb-10 text-center">
-              Partners &amp; Clients
-            </p>
-          </AnimatedSection>
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
-            {[
-              { src: "/hp.png", alt: "HP Supplier 2020", w: 80 },
-              { src: "/lenovo-300x100.png", alt: "Lenovo", w: 120 },
-              { src: "/ict-authority.png", alt: "ICT Authority Kenya", w: 110 },
-              {
-                src: "/compasssion.png",
-                alt: "Compassion International",
-                w: 130,
-              },
-              { src: "/digischool logo.png", alt: "Digi School", w: 100 },
-              { src: "/afra.png", alt: "AFRA", w: 70 },
-            ].map((p, i) => (
-              <motion.div
-                key={p.alt}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
-              >
-                <Image
-                  src={p.src}
-                  alt={p.alt}
-                  width={p.w}
-                  height={60}
-                  className="h-10 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="bg-[#f5f5f7] py-[120px]">
         <AnimatedSection
