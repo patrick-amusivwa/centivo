@@ -302,6 +302,65 @@ export default function Home() {
           </div>
         </AnimatedSection>
       </section>
+
+      {/* Partners & Clients Carousel */}
+      <section className="bg-white py-[120px]">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <AnimatedSection className="mb-16 text-center">
+            <p className="text-[12px] font-semibold text-[#6e6e73] tracking-widest uppercase mb-4">
+              Partners &amp; Clients
+            </p>
+            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-tight text-[#1d1d1f] leading-tight">
+              Trusted by organizations across Kenya.
+            </h2>
+          </AnimatedSection>
+          
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-12 md:gap-16"
+              animate={{ x: ["0%", "-100%"] }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {[
+                { src: "/hp.png", alt: "HP Supplier 2020", w: 80 },
+                { src: "/lenovo-300x100.png", alt: "Lenovo", w: 120 },
+                { src: "/ict-authority.png", alt: "ICT Authority Kenya", w: 110 },
+                { src: "/compasssion.png", alt: "Compassion International", w: 130 },
+                { src: "/digischool logo.png", alt: "Digi School", w: 100 },
+                { src: "/afra.png", alt: "AFRA", w: 70 },
+                { src: "/national peace support training.png", alt: "National Peace Support Training", w: 100 },
+                { src: "/friends church.png", alt: "Friends Church", w: 110 },
+                { src: "/kariobangi.png", alt: "Kariobangi", w: 90 },
+                { src: "/wasrebcolor.png", alt: "Wasreb", w: 100 },
+                { src: "/maisha national aids control council.png", alt: "Maisha National AIDS Control Council", w: 120 },
+                { src: "/carrefourcolor.png", alt: "Carrefour", w: 100 },
+                { src: "/hp.png", alt: "HP Supplier 2020", w: 80 },
+                { src: "/lenovo-300x100.png", alt: "Lenovo", w: 120 },
+                { src: "/ict-authority.png", alt: "ICT Authority Kenya", w: 110 },
+                { src: "/compasssion.png", alt: "Compassion International", w: 130 },
+                { src: "/digischool logo.png", alt: "Digi School", w: 100 },
+                { src: "/afra.png", alt: "AFRA", w: 70 },
+                { src: "/national peace support training.png", alt: "National Peace Support Training", w: 100 },
+                { src: "/friends church.png", alt: "Friends Church", w: 110 },
+              ].map((p, i) => (
+                <div key={i} className="flex-shrink-0">
+                  <Image
+                    src={p.src}
+                    alt={p.alt}
+                    width={p.w}
+                    height={60}
+                    className="h-12 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
