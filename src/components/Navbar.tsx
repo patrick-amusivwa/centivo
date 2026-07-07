@@ -59,9 +59,9 @@ export default function Navbar() {
         transition={{ duration: 0.3 }}
         className="fixed top-0 inset-x-0 z-50 nav-glass"
       >
-        <nav className="max-w-[1400px] mx-auto px-6 lg:px-10 h-24 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <div className="relative w-[400px] h-[160px]">
+        <nav className="max-w-full px-6 lg:px-16 h-24 flex items-center justify-between">
+          <Link href="/" className="flex items-center flex-shrink-0">
+            <div className="relative w-[380px] h-[130px]">
               <Image
                 src="/imagestouse/CENTIVO LOGO.png"
                 alt="Centivo Technologies"
@@ -73,32 +73,25 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8 ml-auto">
             {links.map((l) => (
               <motion.div key={l.href} whileHover={{ scale: 1.05 }}>
                 <Link
                   href={l.href}
-                  className={`text-[14px] font-bold tracking-[0.01em] transition-all duration-150 relative ${
+                  className={`text-[14px] font-semibold tracking-[0.01em] transition-all duration-150 text-black ${
                     pathname === l.href
-                      ? "text-black"
-                      : "text-black hover:text-[#0071e3]"
+                      ? "opacity-100"
+                      : "opacity-70 hover:opacity-100"
                   }`}
                 >
                   {l.label}
-                  {pathname === l.href && (
-                    <motion.div
-                      layoutId="underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0071e3]"
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
                 </Link>
               </motion.div>
             ))}
             <motion.div whileHover={{ scale: 1.05 }}>
               <Link
                 href="/contact"
-                className="text-[14px] font-bold text-white bg-[#0071e3] hover:bg-[#0077ed] px-4 py-1.5 rounded-full shadow-[0_10px_24px_rgba(0,113,227,0.24)] transition-all duration-150"
+                className="text-[14px] font-semibold text-white bg-[#0071e3] hover:bg-[#0077ed] px-5 py-2 rounded-full shadow-[0_10px_24px_rgba(0,113,227,0.24)] transition-all duration-150 ml-2"
               >
                 Contact
               </Link>
@@ -108,7 +101,7 @@ export default function Navbar() {
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-[14px] font-bold text-black hover:text-black transition-colors"
+            className="md:hidden text-[14px] font-semibold text-black hover:text-black transition-colors"
           >
             {open ? "Close" : "Menu"}
           </button>
@@ -129,7 +122,7 @@ export default function Navbar() {
                   <motion.div key={l.href} whileHover={{ x: 4 }}>
                     <Link
                       href={l.href}
-                      className={`py-2 text-[15px] font-bold ${pathname === l.href ? "text-black" : "text-black"}`}
+                      className={`py-2 text-[15px] font-semibold text-black ${pathname === l.href ? "opacity-100" : "opacity-70"}`}
                     >
                       {l.label}
                     </Link>
@@ -137,7 +130,7 @@ export default function Navbar() {
                 ))}
                 <Link
                   href="/contact"
-                  className="mt-2 py-2 text-[15px] font-bold text-[#0071e3]"
+                  className="mt-2 py-2 text-[15px] font-semibold text-[#0071e3]"
                 >
                   Contact
                 </Link>
