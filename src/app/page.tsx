@@ -317,7 +317,7 @@ export default function Home() {
           
           <div className="overflow-hidden">
             <motion.div
-              className="flex gap-12 md:gap-16"
+              className="flex gap-6 sm:gap-8 md:gap-12 lg:gap-16"
               animate={{ x: ["0%", "-100%"] }}
               transition={{
                 duration: 25,

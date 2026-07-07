@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
+
 interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;

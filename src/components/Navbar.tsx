@@ -61,7 +61,7 @@ export default function Navbar() {
       >
         <nav className="max-w-full px-6 lg:px-16 h-24 flex items-center justify-between">
           <Link href="/" className="flex items-center flex-shrink-0">
-            <div className="relative w-[380px] h-[130px]">
+            <div className="relative w-[280px] h-[95px] sm:w-[380px] sm:h-[130px]">
               <Image
                 src="/imagestouse/CENTIVO LOGO.png"
                 alt="Centivo Technologies"
