@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,38 +14,29 @@ const links = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Show/hide navbar based on scroll direction
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setNavVisible(false);
       } else {
         setNavVisible(true);
       }
-      
-      setLastScrollY(currentScrollY);
-      setScrolled(currentScrollY > 1);
-      
-      // Show back to top button when scrolled down
+
+      lastScrollY.current = currentScrollY;
       setShowBackToTop(currentScrollY > 300);
     };
-    
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [lastScrollY]);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -122,6 +113,7 @@ export default function Navbar() {
                   <motion.div key={l.href} whileHover={{ x: 4 }}>
                     <Link
                       href={l.href}
+                      onClick={() => setOpen(false)}
                       className={`py-2 text-[15px] font-semibold text-black ${pathname === l.href ? "opacity-100" : "opacity-70"}`}
                     >
                       {l.label}
@@ -130,6 +122,7 @@ export default function Navbar() {
                 ))}
                 <Link
                   href="/contact"
+                  onClick={() => setOpen(false)}
                   className="mt-2 py-2 text-[15px] font-semibold text-[#0071e3]"
                 >
                   Contact
