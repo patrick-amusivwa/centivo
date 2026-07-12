@@ -25,7 +25,6 @@ const initialFormState: FormState = {
   service: "",
   message: "",
 };
-const accessKey = "9a9cae0b-d066-44a8-b911-c319d11e42b0";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -46,15 +45,12 @@ export default function ContactForm() {
     setFeedback("");
 
     try {
-      const formData = new FormData(e.currentTarget);
-      formData.append("access_key", accessKey);
-      formData.append("from_email", "contact@mail.centivotechnology.co.ke");
-      formData.append("subject", `New contact inquiry from ${form.name}`);
-      formData.append("from_name", form.name);
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
       });
 
       const data = await response.json();
