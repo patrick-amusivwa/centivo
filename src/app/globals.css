@@ -335,7 +335,7 @@ h1, h2, h3, h4, h5, h6 {
 .gsap-hero {
   position: relative;
   min-height: 100vh;
-  padding: 110px 32px 60px;  /* less top padding — text closer to nav */
+  padding: 70px 32px 60px;  /* reduced top padding to remove dead space below nav */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -349,7 +349,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   font-size: clamp(42px, 6.8vw, 96px);
   letter-spacing: -0.04em;
-  line-height: 1.05;
+  line-height: 1.15;  /* increased to fix cropped text like "y" in Kenya */
   color: #0d0d0d;
   text-align: center;
   margin-bottom: 0;
