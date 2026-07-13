@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="col-span-2 md:col-span-1">
           <Link href="/" className="inline-block mb-4">
             <img
-              src="/centivo logo final.png"
+              src="/centivo logo.png"
               alt="Centivo Technologies"
               className="w-[300px] h-auto object-contain"
               style={{ mixBlendMode: 'multiply' }}

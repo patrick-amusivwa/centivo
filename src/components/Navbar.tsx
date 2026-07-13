@@ -106,7 +106,7 @@ export default function Navbar() {
         <nav className="max-w-full px-6 lg:px-16 h-20 sm:h-24 flex items-center justify-between">
           <Link href="/" className="flex items-center flex-shrink-0" onClick={() => setOpen(false)}>
             <img
-              src="/centivo logo final.png"
+              src="/centivo logo.png"
               alt="Centivo Technologies"
               className="w-[200px] sm:w-[260px] md:w-[300px] h-auto object-contain object-left"
               style={{ maxHeight: '70px', mixBlendMode: 'multiply' }}
