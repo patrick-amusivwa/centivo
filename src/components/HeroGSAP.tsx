@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -15,6 +15,15 @@ export default function HeroGSAP() {
   const heroRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile screen size
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useGSAP(
     () => {
@@ -74,7 +83,7 @@ export default function HeroGSAP() {
         // ── Particle pool ──
         type Pt = { x: number; y: number; px: number; py: number; vx: number; vy: number; life: number; maxLife: number; hue: number; };
 
-        const COUNT = 200;
+        const COUNT = isMobile ? 60 : 150; // Reduce particles on mobile
         const SCALE = 0.003;
         let tick = 0;
 
@@ -91,24 +100,24 @@ export default function HeroGSAP() {
         const pts: Pt[] = Array.from({ length: COUNT }, spawnPt);
 
         const frame = () => {
-          // Fade trail — gentle wash that keeps background visible
+          // Fade trail — lighter on mobile
           ctx.globalCompositeOperation = "source-over";
-          ctx.fillStyle = "rgba(244, 248, 252, 0.15)";
+          ctx.fillStyle = isMobile ? "rgba(244, 248, 252, 0.2)" : "rgba(244, 248, 252, 0.15)";
           ctx.fillRect(0, 0, W, H);
 
-          ctx.lineWidth = 1.1;
+          ctx.lineWidth = isMobile ? 0.7 : 1.1; // Thinner lines on mobile
 
           for (const p of pts) {
-            // Noise-driven angle — two layers for richer flow
-            const nx = p.x * SCALE, ny = p.y * SCALE, nt = tick * 0.00016;
+            // Noise-driven angle — slightly slower on mobile
+            const nx = p.x * SCALE, ny = p.y * SCALE, nt = tick * (isMobile ? 0.0001 : 0.00016);
             const angle = noise2D(nx, ny + nt) * Math.PI * 3.5;
 
             // Smooth velocity toward flow field direction
             p.vx = p.vx * 0.90 + Math.cos(angle) * 1.5 * 0.10;
             p.vy = p.vy * 0.90 + Math.sin(angle) * 1.5 * 0.10;
 
-            // Mouse pull — active whenever mouse is on screen, radius 220px
-            if (mouseActive) {
+            // Mouse pull — only on non-mobile (touch doesn't use this)
+            if (!isMobile && mouseActive) {
               const dx = mouseX - p.x, dy = mouseY - p.y;
               const d2 = dx * dx + dy * dy;
               const R = 220;
@@ -129,9 +138,9 @@ export default function HeroGSAP() {
               continue;
             }
 
-            // Life-based alpha — fade in and out
+            // Life-based alpha — lower on mobile
             const lr = p.life / p.maxLife;
-            const alpha = Math.sin(lr * Math.PI) * 0.42;
+            const alpha = Math.sin(lr * Math.PI) * (isMobile ? 0.25 : 0.42);
 
             ctx.beginPath();
             ctx.strokeStyle = `hsla(${p.hue}, 75%, 52%, ${alpha})`;
@@ -156,8 +165,10 @@ export default function HeroGSAP() {
         handleGlobalMouseLeave = () => { mouseActive = false; };
 
         window.addEventListener("resize",    handleResizeCanvas);
-        window.addEventListener("mousemove", handleGlobalMouseMove);
-        window.addEventListener("mouseleave", handleGlobalMouseLeave);
+        if (!isMobile) {
+          window.addEventListener("mousemove", handleGlobalMouseMove);
+          window.addEventListener("mouseleave", handleGlobalMouseLeave);
+        }
       }
 
       // Set Cards — hidden below, will fly up to position
@@ -232,7 +243,7 @@ export default function HeroGSAP() {
         });
       };
 
-      if (heroElement) {
+      if (heroElement && !isMobile) {
         heroElement.addEventListener("mousemove", handleMouseMove);
         heroElement.addEventListener("mouseleave", handleMouseLeave);
       }
@@ -255,7 +266,7 @@ export default function HeroGSAP() {
         start: "top top",
         end: "+=600",          // 600px of scroll to play out the fan
         pin: true,             // pin the hero while the animation plays
-        scrub: 1.2,
+        scrub: isMobile ? 0.8 : 1.2, // Smoother on mobile
         onUpdate: (self) => {
           const p = self.progress;
 
@@ -284,9 +295,11 @@ export default function HeroGSAP() {
         st.kill();
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         if (handleResizeCanvas) window.removeEventListener("resize", handleResizeCanvas);
-        if (handleGlobalMouseMove) window.removeEventListener("mousemove", handleGlobalMouseMove);
-        if (handleGlobalMouseLeave) window.removeEventListener("mouseleave", handleGlobalMouseLeave);
-        if (heroElement) {
+        if (!isMobile) {
+          if (handleGlobalMouseMove) window.removeEventListener("mousemove", handleGlobalMouseMove);
+          if (handleGlobalMouseLeave) window.removeEventListener("mouseleave", handleGlobalMouseLeave);
+        }
+        if (heroElement && !isMobile) {
           heroElement.removeEventListener("mousemove", handleMouseMove);
           heroElement.removeEventListener("mouseleave", handleMouseLeave);
         }
