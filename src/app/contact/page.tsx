@@ -3,12 +3,17 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "@/components/AnimatedSection";
 import ContactForm from "@/components/ContactForm";
+import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
 
 const ease = [0.4, 0, 0.2, 1] as const;
 
 const contactBlocks = [
   {
     label: "Address",
+    icon: PlaceOutlinedIcon,
     items: [
       { text: "Moi Avenue, Nairobi (HQ)", href: null },
       { text: "Kisumu Branch", href: null },
@@ -17,6 +22,7 @@ const contactBlocks = [
   },
   {
     label: "Email",
+    icon: MailOutlineRoundedIcon,
     items: [
       {
         text: "info@centivotechnology.co.ke",
@@ -26,6 +32,7 @@ const contactBlocks = [
   },
   {
     label: "Phone",
+    icon: PhoneOutlinedIcon,
     items: [
       { text: "0712 834 651", href: "tel:+254712834651" },
       { text: "0729 423 175", href: "tel:+254729423175" },
@@ -33,6 +40,7 @@ const contactBlocks = [
   },
   {
     label: "Business Hours",
+    icon: ScheduleOutlinedIcon,
     items: [
       { text: "Monday – Friday: 8:00 AM – 6:00 PM", href: null },
       { text: "Saturday: 9:00 AM – 4:00 PM", href: null },
@@ -99,7 +107,8 @@ export default function ContactPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06, duration: 0.5, ease }}
                 >
-                  <p className="text-[12px] font-semibold text-[#6e6e73] tracking-widest uppercase mb-2">
+                  <p className="flex items-center gap-2 text-[12px] font-semibold text-[#6e6e73] tracking-widest uppercase mb-2">
+                    <block.icon sx={{ fontSize: 16 }} />
                     {block.label}
                   </p>
                   {block.items.map((item) =>

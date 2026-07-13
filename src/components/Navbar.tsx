@@ -1,9 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import PhoneIcon from "@mui/icons-material/Phone";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const links = [
   { href: "/about", label: "About" },
@@ -13,12 +16,54 @@ const links = [
   { href: "/tenders", label: "Tenders" },
 ];
 
+// Throttle function to limit scroll event calls
+function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let inThrottle: boolean;
+  return function (this: any, ...args: Parameters<T>) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const lastScrollY = useRef(0);
   const pathname = usePathname();
+
+  // Set mounted to true after hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Check screen size for mobile view
+  useEffect(() => {
+    if (!mounted) return;
+
+    const checkIsMobile = () => {
+      const mobile = window.innerWidth < 1280;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setOpen(false);
+      }
+    };
+
+    // Initial check
+    checkIsMobile();
+
+    // Resize listener
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, [mounted]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,9 +79,18 @@ export default function Navbar() {
       setShowBackToTop(currentScrollY > 300);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const throttledOnScroll = throttle(onScroll, 100);
+
+    window.addEventListener("scroll", throttledOnScroll, { passive: true });
+    return () => window.removeEventListener("scroll", throttledOnScroll);
   }, []);
+
+  // Scroll to top when pathname changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Also close mobile menu when navigating
+    setOpen(false);
+  }, [pathname]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,123 +98,110 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: 0 }}
-        animate={{ y: navVisible ? 0 : -200 }}
-        transition={{ duration: 0.3 }}
-        className="fixed top-0 inset-x-0 z-50 nav-glass"
+      <header
+        className={`fixed top-0 inset-x-0 z-50 liquid-glass-nav transition-transform duration-300 ease-out ${
+          navVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
       >
-        <nav className="max-w-full px-6 lg:px-16 h-24 flex items-center justify-between">
-          <Link href="/" className="flex items-center flex-shrink-0">
-            <div className="relative w-[280px] h-[95px] sm:w-[380px] sm:h-[130px]">
-              <Image
-                src="/imagestouse/CENTIVO LOGO.png"
-                alt="Centivo Technologies"
-                fill
-                className="object-contain object-left"
-                priority
-              />
-            </div>
+        <nav className="max-w-full px-6 lg:px-16 h-20 sm:h-24 flex items-center justify-between">
+          <Link href="/" className="flex items-center flex-shrink-0" onClick={() => setOpen(false)}>
+            <img
+              src="/centivo logo final.png"
+              alt="Centivo Technologies"
+              className="w-[200px] sm:w-[260px] md:w-[300px] h-auto object-contain object-left"
+              style={{ maxHeight: '70px', mixBlendMode: 'multiply' }}
+            />
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8 ml-auto">
-            {links.map((l) => (
-              <motion.div key={l.href} whileHover={{ scale: 1.05 }}>
-                <Link
-                  href={l.href}
-                  className={`text-[14px] font-semibold tracking-[0.01em] transition-all duration-150 text-black ${
-                    pathname === l.href
-                      ? "opacity-100"
-                      : "opacity-70 hover:opacity-100"
-                  }`}
-                >
-                  {l.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div whileHover={{ scale: 1.05 }}>
+          {!isMobile && (
+            <div className="flex items-center gap-6 ml-auto">
+              {links.map((l) => (
+                <div key={l.href}>
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={`liquid-glass-nav-link text-[14px] font-semibold tracking-[0.01em] ${
+                      pathname === l.href
+                        ? "is-active opacity-100"
+                        : "opacity-75 hover:opacity-100"
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                </div>
+              ))}
               <Link
                 href="/contact"
-                className="text-[14px] font-semibold text-white bg-[#0071e3] hover:bg-[#0077ed] px-5 py-2 rounded-full shadow-[0_10px_24px_rgba(0,113,227,0.24)] transition-all duration-150 ml-2"
+                onClick={() => setOpen(false)}
+                className="liquid-glass-btn liquid-glass-btn-primary ml-2 text-[14px] gap-2"
               >
+                <PhoneIcon sx={{ fontSize: 18 }} />
                 Contact
               </Link>
-            </motion.div>
-          </div>
+            </div>
+          )}
 
           {/* Mobile toggle */}
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden text-[14px] font-semibold text-black hover:text-black transition-colors"
-          >
-            {open ? "Close" : "Menu"}
-          </button>
+          {isMobile && (
+            <button
+              onClick={() => setOpen((value) => !value)}
+              className="liquid-glass-btn liquid-glass-btn-secondary text-[14px] gap-2"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              type="button"
+            >
+              {open ? <CloseIcon sx={{ fontSize: 20 }} /> : <MenuIcon sx={{ fontSize: 20 }} />}
+              {open ? "Close" : "Menu"}
+            </button>
+          )}
         </nav>
 
         {/* Mobile menu */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden border-t border-slate-200/80 bg-white/95"
-            >
-              <div className="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-1">
-                {links.map((l) => (
-                  <motion.div key={l.href} whileHover={{ x: 4 }}>
-                    <Link
-                      href={l.href}
-                      onClick={() => setOpen(false)}
-                      className={`py-2 text-[15px] font-semibold text-black ${pathname === l.href ? "opacity-100" : "opacity-70"}`}
-                    >
-                      {l.label}
-                    </Link>
-                  </motion.div>
-                ))}
+        {isMobile && (
+          <div
+            id="mobile-nav"
+            className={`liquid-glass-panel mx-4 mt-2 rounded-[2rem] transition-all duration-200 ${
+              open ? "block opacity-100 translate-y-0" : "hidden opacity-0 -translate-y-2"
+            }`}
+          >
+          <div className="relative z-[1] max-w-[1400px] mx-auto px-4 py-4 flex flex-col gap-2">
+            {links.map((l) => (
+              <div key={l.href}>
                 <Link
-                  href="/contact"
+                  href={l.href}
                   onClick={() => setOpen(false)}
-                  className="mt-2 py-2 text-[15px] font-semibold text-[#0071e3]"
+                  className={`liquid-glass-nav-link text-[15px] font-semibold ${pathname === l.href ? "is-active opacity-100" : "opacity-75"}`}
                 >
-                  Contact
+                  {l.label}
                 </Link>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
+            ))}
+            <Link
+              href="/contact"
+              onClick={() => setOpen(false)}
+              className="liquid-glass-btn liquid-glass-btn-primary mt-2 text-[15px] gap-2"
+            >
+              <PhoneIcon sx={{ fontSize: 18 }} />
+              Contact
+            </Link>
+          </div>
+          </div>
+        )}
+      </header>
 
       {/* Back to Top Button */}
-      <AnimatePresence>
-        {showBackToTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            transition={{ duration: 0.3 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 p-3 bg-[#0071e3] hover:bg-[#0077ed] text-white rounded-full shadow-lg transition-colors duration-150"
-            aria-label="Back to top"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 15l7-7 7 7"
-              />
-            </svg>
-          </motion.button>
-        )}
-      </AnimatePresence>
+      <button
+        onClick={scrollToTop}
+        className={`liquid-glass-btn liquid-glass-btn-primary liquid-glass-btn-icon fixed bottom-8 right-8 z-40 text-white transition-all duration-200 ${
+          showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
+        aria-label="Back to top"
+        type="button"
+      >
+        <ArrowUpwardIcon sx={{ fontSize: 24 }} />
+      </button>
     </>
   );
 }

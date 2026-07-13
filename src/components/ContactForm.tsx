@@ -128,7 +128,7 @@ export default function ContactForm() {
         </p>
         <button
           onClick={resetForm}
-          className="text-[15px] font-medium text-[#0071e3] hover:text-[#0077ed] transition-colors"
+          className="liquid-glass-btn liquid-glass-btn-secondary text-[15px]"
         >
           Send another
         </button>
@@ -246,7 +246,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={disabled}
-        className={`w-full py-3 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors${disabled ? " opacity-50 cursor-not-allowed" : ""}`}
+        className={`liquid-glass-btn liquid-glass-btn-primary w-full text-[15px]${disabled ? " opacity-50 cursor-not-allowed" : ""}`}
       >
         {status === "sending" ? "Sending..." : "Send message"}
       </button>

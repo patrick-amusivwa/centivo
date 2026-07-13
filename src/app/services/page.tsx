@@ -137,7 +137,7 @@ const software: {
       "Tally integration",
       "Staff training included",
     ],
-    image: "/Accounting Software's.png",
+    image: "/accounting-softwares.png",
   },
   {
     title: "Web Design & Hosting",
@@ -430,7 +430,7 @@ export default function ServicesPage() {
           </p>
           <Link
             href="/contact"
-            className="px-6 py-2.5 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors duration-150"
+            className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
           >
             Request a quote
           </Link>

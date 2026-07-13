@@ -1,5 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
+
+import BusinessRoundedIcon from "@mui/icons-material/BusinessRounded";
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 
 export default function Footer() {
   return (
@@ -7,16 +13,12 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
         <div className="col-span-2 md:col-span-1">
           <Link href="/" className="inline-block mb-4">
-            {/* Logo container increased to explicit pixel dimensions to ensure visibility */}
-            <div className="relative w-[320px] h-[112px]">
-              <Image
-                src="/imagestouse/CENTIVO LOGO.png"
-                alt="Centivo Technologies"
-                fill
-                className="object-contain object-left"
-                priority
-              />
-            </div>
+            <img
+              src="/centivo logo final.png"
+              alt="Centivo Technologies"
+              className="w-[300px] h-auto object-contain"
+              style={{ mixBlendMode: 'multiply' }}
+            />
           </Link>
           <p className="text-[13px] text-[#6e6e73] leading-relaxed">
             Kenya-based ICT company delivering hardware and software solutions
@@ -25,7 +27,8 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="text-[12px] font-semibold text-[#1d1d1f] tracking-widest uppercase mb-4">
+          <p className="flex items-center gap-2 text-[12px] font-semibold text-[#1d1d1f] tracking-widest uppercase mb-4">
+            <BusinessRoundedIcon sx={{ fontSize: 16 }} />
             Company
           </p>
           <ul className="space-y-2.5">
@@ -69,11 +72,15 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="text-[12px] font-semibold text-[#1d1d1f] tracking-widest uppercase mb-4">
+          <p className="flex items-center gap-2 text-[12px] font-semibold text-[#1d1d1f] tracking-widest uppercase mb-4">
+            <PlaceOutlinedIcon sx={{ fontSize: 16 }} />
             Contact
           </p>
           <ul className="space-y-2.5">
-            <li className="text-[13px] text-[#6e6e73]">Moi Avenue, Nairobi</li>
+            <li className="flex items-start gap-2 text-[13px] text-[#6e6e73]">
+              <PlaceOutlinedIcon sx={{ fontSize: 16 }} />
+              <span>Moi Avenue, Nairobi</span>
+            </li>
             <li className="text-[13px] text-[#6e6e73]">Kisumu Branch</li>
             <li className="text-[13px] text-[#6e6e73]">
               Eldoret, Coming soon
@@ -81,16 +88,18 @@ export default function Footer() {
             <li>
               <a
                 href="mailto:info@centivotechnology.co.ke"
-                className="text-[13px] text-[#6e6e73] hover:text-[#1d1d1f] transition-colors duration-150 break-all"
+                className="flex items-center gap-2 text-[13px] text-[#6e6e73] hover:text-[#1d1d1f] transition-colors duration-150 break-all"
               >
+                <MailOutlineRoundedIcon sx={{ fontSize: 16 }} />
                 info@centivotechnology.co.ke
               </a>
             </li>
             <li>
               <a
                 href="tel:+254712834651"
-                className="text-[13px] text-[#6e6e73] hover:text-[#1d1d1f] transition-colors duration-150"
+                className="flex items-center gap-2 text-[13px] text-[#6e6e73] hover:text-[#1d1d1f] transition-colors duration-150"
               >
+                <PhoneOutlinedIcon sx={{ fontSize: 16 }} />
                 0712 834 651
               </a>
             </li>
@@ -101,7 +110,7 @@ export default function Footer() {
       <div className="border-t border-black/5">
         <div className="max-w-[1400px] mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-[13px] text-[#6e6e73]">
-            Copyright {new Date().getFullYear()} Centivo Technologies Ltd.
+            Copyright 2026 Centivo Technologies Ltd.
           </p>
           <p className="text-[13px] text-[#6e6e73]">
             Founded by Saulo Adorwa & Erick Ovitah

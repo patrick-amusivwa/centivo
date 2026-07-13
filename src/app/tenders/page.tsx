@@ -260,7 +260,7 @@ export default function TendersPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-3 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors"
+              className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
             >
               Register interest
             </Link>

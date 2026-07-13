@@ -289,7 +289,7 @@ export default function AboutPage() {
                 { src: "/digischool logo.png", alt: "Digi School", w: 100 },
                 { src: "/afra.png", alt: "AFRA", w: 70 },
                 { src: "/national peace support training.png", alt: "National Peace Support Training", w: 100 },
-                { src: "/Figure 3 friends church quarters yearly meeting.png", alt: "Figure 3 Friends Church", w: 110 },
+                { src: "/friendschurch.png", alt: "Figure 3 Friends Church", w: 110 },
               ].map((p, i) => (
                 <div key={i} className="flex-shrink-0">
                   <Image
@@ -318,7 +318,7 @@ export default function AboutPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block bg-[#0071e3] hover:bg-[#0077ed] text-white rounded-full px-6 py-2.5 text-[15px] font-medium transition-colors"
+              className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
             >
               Contact us
             </Link>

@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme inline {
-    --font-sans: var(--font-inter);
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 *,
@@ -16,27 +18,269 @@ html {
 
 body {
     font-family:
-        var(--font-inter),
+        'Inter',
         -apple-system,
         BlinkMacSystemFont,
-        "SF Pro Text",
         "Segoe UI",
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #ffffff;
-    color: #1d1d1f;
+    background: radial-gradient(120% 70% at 50% 0%, #f4f8fc 0%, #e6f0fa 60%, #cce0f5 100%);
+    color: #0a1b35;
     overflow-x: hidden;
 }
 
-/* ── Apple glass nav ── */
-.nav-glass {
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+/* All headings — Plus Jakarta Sans for the editorial bold geometric feel */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-feature-settings: 'ss01', 'ss02';
+    letter-spacing: -0.03em;
 }
+
+/* ══════════════════════════════════════════
+   APPLE LIQUID GLASS NAVIGATION
+   Stable glass styling with deep blur
+══════════════════════════════════════════ */
+.liquid-glass-nav {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  /* Ultra-thin, mostly transparent glass body */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.1);
+
+  /* Deep backdrop blur — the "thickness" of the glass */
+  backdrop-filter: blur(48px) saturate(220%) brightness(1.06);
+  -webkit-backdrop-filter: blur(48px) saturate(220%) brightness(1.06);
+
+  /* Glass edge — very thin, bright at top (rim light), subtle bottom */
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.28);
+
+  /* Layered shadows — inner rim light is the key Apple detail */
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.65),   /* top rim — bright specular */
+    inset 0 -0.5px 0 rgba(255, 255, 255, 0.12),  /* bottom rim — subtle */
+    inset 1px 0 0 rgba(255, 255, 255, 0.08),     /* left edge */
+    inset -1px 0 0 rgba(255, 255, 255, 0.08),    /* right edge */
+    0 8px 40px rgba(0, 0, 0, 0.07),              /* elevation shadow */
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.liquid-glass-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.22), transparent 48%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Specular highlight — simulates curved glass reflecting light */
+.liquid-glass-nav::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Diagonal specular gradient — bright top-left, dark bottom-right */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.30) 0%,
+    rgba(255, 255, 255, 0.12) 20%,
+    rgba(255, 255, 255, 0.04) 45%,
+    transparent 65%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  /* Noise texture — glass is never perfectly smooth */
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mask-size: 180px;
+  mask-repeat: repeat;
+}
+
+/* Keep nav content above the glass layers */
+.liquid-glass-nav > nav {
+  position: relative;
+  z-index: 2;
+}
+
+.liquid-glass-panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.38)),
+    rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(34px) saturate(190%);
+  -webkit-backdrop-filter: blur(34px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+.liquid-glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1) 35%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.16)
+  );
+}
+
+.liquid-glass-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.62rem 1rem;
+  border-radius: 999px;
+  color: rgba(10, 27, 53, 0.82);
+  background: transparent;
+  border: 1px solid transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.liquid-glass-nav-link:hover,
+.liquid-glass-nav-link.is-active {
+  color: #081223;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.liquid-glass-nav-link:hover {
+  transform: translateY(-1px);
+}
+
+.liquid-glass-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 24px rgba(15, 23, 42, 0.1);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease,
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+.liquid-glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.46),
+    rgba(255, 255, 255, 0.14) 32%,
+    transparent 58%,
+    rgba(255, 255, 255, 0.12)
+  );
+}
+
+.liquid-glass-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.76),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
+    0 16px 40px rgba(15, 23, 42, 0.18);
+}
+
+.liquid-glass-btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.liquid-glass-btn:focus-visible,
+.liquid-glass-nav-link:focus-visible {
+  outline: 2px solid rgba(0, 113, 227, 0.38);
+  outline-offset: 3px;
+}
+
+.liquid-glass-btn-primary {
+  color: #ffffff !important;
+  background:
+    linear-gradient(180deg, rgba(111, 183, 255, 0.55), rgba(0, 113, 227, 0.6)),
+    rgba(0, 113, 227, 0.38);
+  border-color: rgba(191, 226, 255, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 38px rgba(0, 113, 227, 0.26);
+}
+
+.liquid-glass-btn-primary:hover {
+  background:
+    linear-gradient(180deg, rgba(126, 191, 255, 0.62), rgba(0, 119, 237, 0.72)),
+    rgba(0, 119, 237, 0.46);
+  border-color: rgba(218, 239, 255, 0.5);
+}
+
+.liquid-glass-btn-secondary {
+  color: #0a1b35 !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22)),
+    rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.liquid-glass-btn-secondary:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.28)),
+    rgba(255, 255, 255, 0.24);
+}
+
+.liquid-glass-btn-icon {
+  width: 3.25rem;
+  min-width: 3.25rem;
+  padding-inline: 0;
+}
+
+/* ── Keep old nav-glass as fallback ── */
+.nav-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 2px 20px rgba(15, 23, 42, 0.06);
+}
+
 
 /* ── Liquid glass card (dark surface only) ── */
 .glass-card {
@@ -75,4 +319,185 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* ============ GSAP Redesign Styles ============ */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.gsap-hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 110px 32px 60px;  /* less top padding — text closer to nav */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.gsap-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: clamp(42px, 6.8vw, 96px);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #0d0d0d;
+  text-align: center;
+  margin-bottom: 0;
+  z-index: 4;
+  position: relative;
+}
+
+.gsap-title .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.gsap-title .word > span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+/* ── Hero subline typography ── */
+.hero-subline-primary {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 400;
+  color: #222222;
+  line-height: 1.65;
+  letter-spacing: 0em;
+  margin-bottom: 10px;
+}
+
+.hero-subline-secondary {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.1vw, 14px);
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.7;
+  letter-spacing: 0em;
+}
+
+
+/* ── CENTIVO watermark — flows in normal layout below text ── */
+.big-results-wrap {
+  position: relative;   /* normal flow, sits between text and cards */
+  top: auto;
+  left: auto;
+  right: auto;
+  transform: none;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+  margin-top: 8px;
+  margin-bottom: -20px; /* slight pull so cards overlap bottom of text */
+  width: 100%;
+}
+
+.big-results {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(110px, 21vw, 300px);
+  letter-spacing: -0.045em;
+  line-height: 0.85;
+  color: #c8d9ef;      /* slightly stronger so it shows through cards */
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 2;
+  /* No mix-blend-mode — it was making the text invisible */
+  opacity: 0.9;
+}
+
+.big-results .letter {
+  display: inline-block;
+  transform-origin: bottom;
+}
+
+.cards-row {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  margin-top: 0;   /* cards follow directly below CENTIVO */
+  z-index: 3;
+  pointer-events: none;
+}
+.cards-row > * {
+  pointer-events: auto;
+}
+
+/* ── Pinterest-clean cards: real photo, soft shadow, no fake overlays ── */
+.gsap-card {
+  position: absolute;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e8edf2;
+  /* Soft, natural multi-layer shadow — no inset darkness */
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 8px 16px rgba(0,0,0,0.08),
+    0 20px 40px rgba(0,0,0,0.1);
+  cursor: pointer;
+  will-change: transform;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+/* NO ::before overlay — let the real photo show */
+
+.gsap-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  /* Tiny saturate boost — makes real photos pop without looking fake */
+  filter: saturate(1.08) contrast(1.02);
+  transition: filter 0.4s ease;
+}
+
+.gsap-card:hover {
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.06),
+    0 16px 32px rgba(0,0,0,0.12),
+    0 32px 64px rgba(0,0,0,0.14);
+}
+.gsap-card:hover img {
+  filter: saturate(1.12) contrast(1.04);
+}
+
+.card-1 { width: 130px; height: 180px; left: 4%; top: 30px; z-index: 1; }
+.card-2 { width: 160px; height: 220px; left: 12%; top: 50px; z-index: 2; }
+.card-3 { width: 200px; height: 270px; left: 22%; top: 20px; z-index: 4; }
+.card-4 { width: 150px; height: 200px; left: 36%; top: 70px; z-index: 3; }
+.card-5 { width: 230px; height: 310px; left: 44%; top: 0px; z-index: 5; }
+.card-6 { width: 160px; height: 215px; left: 59%; top: 55px; z-index: 3; }
+.card-7 { width: 175px; height: 240px; left: 70%; top: 30px; z-index: 4; }
+.card-8 { width: 130px; height: 175px; left: 84%; top: 50px; z-index: 2; }
+
+@media (max-width: 750px) {
+  .gsap-hero { padding: 100px 16px 40px; }
+  .cards-row { height: 220px; top: 52%; }
+  .card-1 { width: 80px; height: 110px; left: 0%; top: 20px; }
+  .card-2 { width: 90px; height: 130px; left: 10%; top: 35px; }
+  .card-3 { width: 110px; height: 150px; left: 22%; top: 15px; }
+  .card-4 { width: 90px; height: 120px; left: 36%; top: 50px; }
+  .card-5 { width: 130px; height: 180px; left: 46%; top: 0; }
+  .card-6 { width: 95px; height: 130px; left: 62%; top: 40px; }
+  .card-7 { width: 100px; height: 140px; left: 74%; top: 20px; }
+  .card-8 { width: 80px; height: 110px; left: 87%; top: 35px; }
+  .liquid-glass-nav-link {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

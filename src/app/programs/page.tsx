@@ -133,7 +133,7 @@ export default function ProgramsPage() {
                 </p>
                 <a
                   href="mailto:info@centivotechnology.co.ke?subject=Solar Installation Inquiry"
-                  className="inline-block px-6 py-2.5 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors duration-150"
+                  className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
                 >
                   Enquire about solar
                 </a>
@@ -260,7 +260,7 @@ export default function ProgramsPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-3 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors"
+              className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
             >
               Get a POS quote
             </Link>
@@ -290,7 +290,7 @@ export default function ProgramsPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-3 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors"
+              className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
             >
               Book a consultation
             </Link>
@@ -332,7 +332,7 @@ export default function ProgramsPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-3 bg-[#0071e3] hover:bg-[#0077ed] text-white text-[15px] font-medium rounded-full transition-colors"
+              className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
             >
               Contact us
             </Link>

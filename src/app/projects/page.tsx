@@ -178,7 +178,7 @@ export default function ProjectsPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block bg-[#0071e3] hover:bg-[#0077ed] text-white rounded-full px-6 py-2.5 text-[15px] font-medium transition-colors"
+              className="liquid-glass-btn liquid-glass-btn-primary text-[15px]"
             >
               Start a project
             </Link>
