@@ -108,7 +108,7 @@ export default function Navbar() {
             <img
               src="/centivo logo.png"
               alt="Centivo Technologies"
-              className="w-[200px] sm:w-[260px] md:w-[300px] h-auto object-contain object-left"
+              className="w-[140px] sm:w-[220px] md:w-[280px] h-auto object-contain object-left"
               style={{ maxHeight: '70px', mixBlendMode: 'multiply' }}
             />
           </Link>
